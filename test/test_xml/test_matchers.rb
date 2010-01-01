@@ -34,6 +34,9 @@ class TestMatchers < Test::Unit::TestCase
         <one>1</one>
         <two>2</two>
         <three>3</three>
+        <four>
+          <five>5</five>
+        </four>
       </root>
     XML
 
