@@ -1,8 +1,9 @@
 require 'rubygems'
 require 'rake'
 require 'rake/testtask'
+require 'spec/rake/spectask'
 
-task :default => 'test:units'
+task :default => ['test:units', :spec]
 
 namespace :test do
   Rake::TestTask.new(:units) do |t|
@@ -10,4 +11,10 @@ namespace :test do
     t.libs << "test"
     t.verbose = true
   end
+end
+
+
+Spec::Rake::SpecTask.new do |t|
+    t.libs << "spec"
+    t.verbose = true
 end
