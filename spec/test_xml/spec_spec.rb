@@ -10,7 +10,7 @@ describe "xml" do
     XML
   end
 
-  it "shoul match_xml" do
+  it "should match_xml" do
     @xml.should match_xml(<<-XML)
       <root>
         <one>1</one>

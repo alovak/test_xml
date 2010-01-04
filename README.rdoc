@@ -1,5 +1,4 @@
 = test_xml
-
 == DESCRIPTION:
 
 Small library to test xml with Test::Unit or RSpec.
@@ -8,50 +7,50 @@ Small library to test xml with Test::Unit or RSpec.
 
 === Test::Unit
 
-  in test_helper:
+in test_helper:
     
-    require 'test_xml'
-    require 'test_xml/test_unit'
+  require 'test_xml'
+  require 'test_xml/test_unit'
 
-  in test file:
+in test file:
 
-    def test_xml
-      xml = <<-XML
+  def test_xml
+    xml = <<-XML
+      <root>
+        <one>1</one>
+      </root>
+    XML
+
+    assert_match_xml(xml) do
+      <<-XML
         <root>
           <one>1</one>
         </root>
       XML
-
-      assert_match_xml(xml) do
-        <<-XML
-          <root>
-            <one>1</one>
-          </root>
-        XML
-      end
     end
+  end
 
 === RSpec
 
-  in spec_helper:
-    
-    require 'test_xml'
-    require 'test_xml/spec'
+in spec_helper:
+  
+  require 'test_xml'
+  require 'test_xml/spec'
 
-  in spec file:
+in spec file:
 
-    it "shoul match_xml" do
-      xml = <<-XML
-        <root>
-          <one>1</one>
-          <two>2</two>
-        </root>
-      XML
+  it "should match_xml" do
+    xml = <<-XML
+      <root>
+        <one>1</one>
+        <two>2</two>
+      </root>
+    XML
 
-      xml.should match_xml(<<-XML)
-        <root>
-          <one>1</one>
-          <two>2</two>
-        </root>
-      XML
-    end
+    xml.should match_xml(<<-XML)
+      <root>
+        <one>1</one>
+        <two>2</two>
+      </root>
+    XML
+  end
