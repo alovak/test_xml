@@ -2,13 +2,41 @@
 
 == DESCRIPTION:
 
-Small library to test xml with Test::Unit or RSpec or Cucumber. 
+Small library to test XML/HTML documents with Test::Unit or RSpec or Cucumber. 
 
-It helps you to make your tests more easy-to-see.  You can check that xml (or html) has required elements with corresponding structure. For example you can test API, html documents, etc.
+TestXml helps you to make your tests more easy-to-see.  You can check that XML document has required elements with corresponding structure. For example, I use it to test our API.
+
+== FEATURES:
+
+* Test XML with: Test::Unit, RSpec or Cucumber
+* Test XML structure
+* Test the values of XML elements
 
 == EXAMPLES:
 
-=== Test::Unit
+=== Cucumber feature
+
+  Scenario:
+    Given data
+    When I post the data
+    The I receive successful response
+    And response  matches the following xml
+    """
+      <transaction>
+        <status>success</status>
+        <id/>
+        <order_id/>
+      </transaction>
+    """
+
+Step will check:
+
+* 'status' element and its value. 
+* 'id' and 'order_id' elements
+
+== USAGE:
+
+=== With Test::Unit
 
 in test_helper.rb
     
@@ -17,7 +45,7 @@ in test_helper.rb
 
 in test file:
 
-  def test_xml
+  def test_that_xml_matches
     xml = <<-XML
       <root>
         <one>1</one>
@@ -33,7 +61,7 @@ in test file:
     end
   end
 
-=== RSpec
+=== With RSpec
 
 in spec_helper.rb
   
@@ -58,7 +86,7 @@ in spec file:
     XML
   end
 
-=== Cucumber
+=== With Cucumber
 
 Add to features/env.rb
 
@@ -72,24 +100,9 @@ And you can add the following step:
     response.body.should match_xml(string)
   end
 
-Now in you cucumber feature you can test your xml response
-
-  Scenario:
-    Given data
-    When I post the data
-    The I receive successful response
-    And response shoul match the following xml
-    """
-      <transaction>
-        <status>success</status>
-        <id/>
-        <order_id/>
-      </transaction>
-    """
-
 == REQUIREMENTS
 
-  test_xml requires Nokogiri
+test_xml depends on Nokogiri
 
 == INSTALL
 
