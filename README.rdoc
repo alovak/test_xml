@@ -1,7 +1,10 @@
-= test_xml
+= TestXml
+
 == DESCRIPTION:
 
-Small library to test xml with Test::Unit or RSpec.
+Small library to test xml with Test::Unit or RSpec or Cucumber. 
+
+It helps you to make your tests more easy-to-see.  You can check that xml (or html) has required elements with corresponding structure. For example you can test API, html documents, etc.
 
 == EXAMPLES:
 
@@ -54,3 +57,40 @@ in spec file:
       </root>
     XML
   end
+
+=== Cucumber
+
+Add to features/env.rb
+
+  require 'test_xml'
+  require 'test_xml/spec'
+  World(TestXml::Spec)
+
+And you can add the following step:
+
+  Then /^response matches the following xml$/ do |string|
+    response.body.should match_xml(string)
+  end
+
+Now in you cucumber feature you can test your xml response
+
+  Scenario:
+    Given data
+    When I post the data
+    The I receive successful response
+    And response shoul match the following xml
+    """
+      <transaction>
+        <status>success</status>
+        <id/>
+        <order_id/>
+      </transaction>
+    """
+
+== REQUIREMENTS
+
+  test_xml requires Nokogiri
+
+== INSTALL
+
+  [sudo] gem install test_xml 
