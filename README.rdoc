@@ -7,7 +7,7 @@ Small library to test xml with Test::Unit or RSpec.
 
 === Test::Unit
 
-in test_helper:
+in test_helper.rb
     
   require 'test_xml'
   require 'test_xml/test_unit'
@@ -32,7 +32,7 @@ in test file:
 
 === RSpec
 
-in spec_helper:
+in spec_helper.rb
   
   require 'test_xml'
   require 'test_xml/spec'
