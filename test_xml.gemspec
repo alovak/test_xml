@@ -2,7 +2,7 @@ Gem::Specification.new do |s|
   s.name         = "test_xml"
   s.version      = "0.0.1"
   s.author       = "Pavel Gabriel"
-  s.homepage     = "http://github.com/alovak/"
+  s.homepage     = "http://github.com/alovak/test_xml"
   s.summary      = "test_xml allows you to test xml with Test::Unit or RSpec"
   s.description  = "test_xml allows you to test xml (match stucture and values) with Test::Unit or RSpec"
   s.email        = "alovak@gmail.com"
