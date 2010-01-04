@@ -32,7 +32,7 @@ TestXml helps you to make your tests more easy-to-see.  You can check that XML d
 Step will check:
 
 * 'status' element and its value. 
-* 'id' and 'order_id' elements
+* 'id' and 'order_id' elements are present in XML
 
 == USAGE:
 
