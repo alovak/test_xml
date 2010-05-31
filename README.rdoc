@@ -2,9 +2,9 @@
 
 == DESCRIPTION:
 
-Small library to test XML/HTML documents with Test::Unit or RSpec or Cucumber. 
+Small library to test XML/HTML documents with Test::Unit or RSpec or Cucumber.
 
-TestXml helps you to make your tests more easy-to-see.  You can check that XML document has required elements with corresponding structure. For example, I use it to test our API.
+TestXml helps you to make your tests more easy-to-see. You can check that XML document has required elements with corresponding structure. For example, I use it to test our API.
 
 == FEATURES:
 
@@ -29,17 +29,17 @@ TestXml helps you to make your tests more easy-to-see.  You can check that XML d
       </transaction>
     """
 
-Step will check:
+The scenario will check:
 
-* 'status' element and its value. 
-* 'id' and 'order_id' elements are present in XML
+* 'status' element and its value.
+* that 'id' and 'order_id' elements are present in XML
 
 == USAGE:
 
 === With Test::Unit
 
 in test_helper.rb
-    
+
   require 'test_xml'
   require 'test_xml/test_unit'
 
@@ -64,7 +64,7 @@ in test file:
 === With RSpec
 
 in spec_helper.rb
-  
+
   require 'test_xml'
   require 'test_xml/spec'
 
@@ -106,4 +106,4 @@ test_xml depends on Nokogiri
 
 == INSTALL
 
-  [sudo] gem install test_xml 
+  [sudo] gem install test_xml
