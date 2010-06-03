@@ -9,7 +9,7 @@ TestXml helps you to make your tests more easy-to-see. You can check that XML do
 == FEATURES:
 
 * Test XML with: Test::Unit, RSpec or Cucumber
-* Test XML structure
+* Test XML structure (partially or fully matched)
 * Test the values of XML elements
 
 == EXAMPLES:
@@ -107,3 +107,7 @@ test_xml depends on Nokogiri
 == INSTALL
 
   [sudo] gem install test_xml
+
+== TODO
+
+ * add diff for failed specs

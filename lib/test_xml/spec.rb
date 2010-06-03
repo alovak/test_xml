@@ -1,3 +1,5 @@
+require 'test_xml/spec/matchers.rb'
+
 module TestXml
   module Spec
     class MatchXml
