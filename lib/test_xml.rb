@@ -2,9 +2,9 @@ require 'rubygems'
 require 'nokogiri'
 
 module TestXml
-  VERSION = '0.0.1'
+  VERSION = '0.0.2'
 end
 
-require File.dirname(__FILE__) + '/../lib/test_xml/matchers'
-require File.dirname(__FILE__) + '/../lib/test_xml/nokogiri/node'
-require File.dirname(__FILE__) + '/../lib/test_xml/nokogiri'
+require 'test_xml/matchers'
+require 'test_xml/nokogiri/node'
+require 'test_xml/nokogiri'
