@@ -2,15 +2,13 @@
 
 == DESCRIPTION:
 
-Small library to test XML/HTML documents with Test::Unit or RSpec or Cucumber.
-
-TestXml helps you to make your tests more easy-to-see. You can check that XML document has required elements with corresponding structure. For example, I use it to test our API.
+TestXml is a small extension for RSpec and TestUnit for XML/HTML testing. I have found it very useful for API testing with our Cucumber tests.
 
 == FEATURES:
 
-* Test XML with: Test::Unit, RSpec or Cucumber
-* Test XML structure (partially or fully matched)
-* Test the values of XML elements
+* test XML with: RSpec, Test::Unit, Cucumber
+* test XML structure (partially or fully matched)
+* test the element values within XML structure
 
 == EXAMPLES:
 
@@ -20,7 +18,7 @@ TestXml helps you to make your tests more easy-to-see. You can check that XML do
     Given data
     When I post the data
     The I receive successful response
-    And response  matches the following xml
+    And response matches the following xml
     """
       <transaction>
         <status>success</status>
@@ -32,9 +30,41 @@ TestXml helps you to make your tests more easy-to-see. You can check that XML do
 The scenario will check:
 
 * 'status' element and its value.
-* that 'id' and 'order_id' elements are present in XML
+* 'id' and 'order_id' elements are present in XML
 
 == USAGE:
+
+=== RSpec
+
+in spec_helper.rb
+
+  require 'test_xml'
+  require 'test_xml/spec'
+
+in spec file:
+
+  it "should match_xml" do
+    xml = <<-XML
+      <root>
+        <one>1</one>
+        <two>2</two>
+      </root>
+    XML
+
+    xml.should match_xml(<<-XML)
+      <root>
+        <one>1</one>
+        <two>2</two>
+      </root>
+    XML
+  end
+
+=== Implemented matchers
+
+* match_xml
+* exactly_match_xml
+* match_xml_structure
+* exactly_match_xml_structure
 
 === With Test::Unit
 
@@ -61,30 +91,14 @@ in test file:
     end
   end
 
-=== With RSpec
+=== Implemented assertions
 
-in spec_helper.rb
+* assert_match_xml
+* assert_exactly_match_xml
+* assert_match_xml_structure
+* assert_exactly_match_xml_structure
 
-  require 'test_xml'
-  require 'test_xml/spec'
-
-in spec file:
-
-  it "should match_xml" do
-    xml = <<-XML
-      <root>
-        <one>1</one>
-        <two>2</two>
-      </root>
-    XML
-
-    xml.should match_xml(<<-XML)
-      <root>
-        <one>1</one>
-        <two>2</two>
-      </root>
-    XML
-  end
+with assert_not_*
 
 === With Cucumber
 
@@ -107,7 +121,3 @@ test_xml depends on Nokogiri
 == INSTALL
 
   [sudo] gem install test_xml
-
-== TODO
-
- * add diff for failed specs
