@@ -53,4 +53,29 @@ describe "match_xml(xml)" do
       XML
     end
   end
+
+  context "when xml has elements with the same name within parent element" do
+    subject {
+      <<-XML
+        <xml>
+          <errors>
+            <error>one</error>
+            <error>two</error>
+          </errors>
+        </xml>
+      XML
+    }
+
+    it "should pass" do
+      should match_xml(<<-XML)
+        <xml>
+          <errors>
+            <error>one</error>
+            <error>two</error>
+          </errors>
+        </xml>
+      XML
+    end
+  end
+
 end

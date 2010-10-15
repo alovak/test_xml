@@ -6,7 +6,7 @@ module TestXml
           equal_text?(element)
         else
           contains_elements_of?(element) &&
-          !element.elements.find {|el| not at(el.name).match?(el, compare_value) }
+          element.elements.all? {|el| matches_at_least_one?(el, compare_value) }
         end
       end
 
@@ -30,6 +30,11 @@ module TestXml
       def contains?(element)
         children.find {|node| node.element? && node.name == element.name }
       end
+
+      def matches_at_least_one?(element, compare_value)
+        search(element.name).find { |el| el.match?(element, compare_value) }
+      end
+
     end
   end
 end
