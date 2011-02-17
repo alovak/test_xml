@@ -1,4 +1,7 @@
-require 'lib/test_xml/version'
+lib = File.expand_path('../lib/', __FILE__)
+$:.unshift lib unless $:.include?(lib)
+
+require 'test_xml/version'
 
 Gem::Specification.new do |s|
   s.name		= "test_xml"
