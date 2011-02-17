@@ -1,7 +1,9 @@
-require 'rubygems'
-require 'rake'
+require 'bundler'
+Bundler::GemHelper.install_tasks
+
+
 require 'rake/testtask'
-require 'spec/rake/spectask'
+require 'rspec/core/rake_task'
 require 'rdoc/task'
 
 task :default => ['test:units', :spec]
@@ -15,8 +17,8 @@ namespace :test do
 end
 
 
-Spec::Rake::SpecTask.new do |t|
-    t.libs << "spec"
+RSpec::Core::RakeTask.new do |t|
+    #t.libs << "spec"
     t.verbose = true
 end
 
