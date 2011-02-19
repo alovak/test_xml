@@ -10,42 +10,48 @@ class TestAssertions < Test::Unit::TestCase
   end
     
   def test_assert_match_xml
-    xml = <<-XML
+    expected = <<-XML
       <root>
         <one>1</one>
         <two>2</two>
       </root>
     XML
+    
+    actual = <<-XML
+      <root>
+        <one>1</one>
+      </root>
+    XML
 
-    assert_match_xml(xml) do
-      <<-XML
-        <root>
-          <one>1</one>
-        </root>
-      XML
+    assert_match_xml(expected) do
+      actual
     end
     
-    assert_match_xml xml, "<root><one>1</one></root>"
+    assert_match_xml expected, actual
   end
 
   def test_assert_not_match_xml
-    xml = <<-XML
+    expected = <<-XML
       <root>
         <one>1</one>
       </root>
     XML
-
-    assert_not_match_xml(xml) do
-      <<-XML
-        <root>
-          <one>2</one>
-        </root>
-      XML
+    
+    actual = <<-XML
+      <root>
+        <one>2</one>
+      </root>
+    XML
+      
+    assert_not_match_xml(expected) do
+      actual
     end
+    
+    assert_not_match_xml expected, actual
   end
 
   def test_assert_match_xml_structure
-    xml = <<-XML
+    expected = <<-XML
       <root>
         <one>1</one>
         <two>
@@ -53,21 +59,25 @@ class TestAssertions < Test::Unit::TestCase
         </two>
       </root>
     XML
+    
+    actual = <<-XML
+      <root>
+        <one>2</one>
+        <two>
+          <three>4</three>
+        </two>
+      </root>
+    XML
 
-    assert_match_xml_structure(xml) do
-      <<-XML
-        <root>
-          <one>2</one>
-          <two>
-            <three>4</three>
-          </two>
-        </root>
-      XML
+    assert_match_xml_structure(expected) do
+      actual
     end
+    
+    assert_match_xml_structure expected, actual
   end
 
   def test_assert_not_match_xml_structure
-    xml = <<-XML
+    expected = <<-XML
       <root>
         <one>1</one>
         <two>
@@ -75,55 +85,68 @@ class TestAssertions < Test::Unit::TestCase
         </two>
       </root>
     XML
-
-    assert_not_match_xml_structure(xml) do
-      <<-XML
-        <root>
-          <one>2</one>
-          <two>
-            <four/>
-          </two>
-        </root>
-      XML
+    
+    actual = <<-XML
+      <root>
+        <one>2</one>
+        <two>
+          <four/>
+        </two>
+      </root>
+    XML
+    
+    assert_not_match_xml_structure(expected) do
+      actual
     end
+    
+    assert_not_match_xml_structure expected, actual
   end
 
   def test_assert_exactly_match_xml
-    xml = <<-XML
+    expected = <<-XML
+      <root>
+        <one>1</one>
+        <two>2</two>
+      </root>
+    XML
+    
+    actual = <<-XML
       <root>
         <one>1</one>
         <two>2</two>
       </root>
     XML
 
-    assert_exactly_match_xml(xml) do
-      <<-XML
-        <root>
-          <one>1</one>
-          <two>2</two>
-        </root>
-      XML
+    assert_exactly_match_xml(expected) do
+      actual
     end
+    
+    assert_exactly_match_xml expected, actual
   end
 
   def test_assert_not_exactly_match_xml
-    xml = <<-XML
+    expected = <<-XML
       <root>
         <one>1</one>
         <two>2</two>
       </root>
     XML
+    
+    actual = <<-XML
+      <root>
+        <one>1</one>
+      </root>
+    XML
 
-    assert_not_exactly_match_xml(xml) do
-      <<-XML
-        <root>
-          <one>1</one>
-        </root>
-      XML
+    assert_not_exactly_match_xml(expected) do
+      actual
     end
+    
+    assert_not_exactly_match_xml expected, actual
   end
+  
   def test_assert_exactly_match_xml_structure
-    xml = <<-XML
+    expected = <<-XML
       <root>
         <one>1</one>
         <two>
@@ -131,21 +154,25 @@ class TestAssertions < Test::Unit::TestCase
         </two>
       </root>
     XML
-
-    assert_exactly_match_xml_structure(xml) do
-      <<-XML
-        <root>
-          <one>2</one>
-          <two>
-            <three>4</three>
-          </two>
-        </root>
-      XML
+    
+    actual = <<-XML
+      <root>
+        <one>2</one>
+        <two>
+          <three>4</three>
+        </two>
+      </root>
+    XML
+    
+    assert_exactly_match_xml_structure(expected) do
+      actual
     end
+    
+    assert_exactly_match_xml_structure expected, actual
   end
 
   def test_assert_not_exactly_match_xml_structure
-    xml = <<-XML
+    expected = <<-XML
       <root>
         <one>1</one>
         <two>
@@ -153,17 +180,21 @@ class TestAssertions < Test::Unit::TestCase
         </two>
       </root>
     XML
+    
+    actual = <<-XML
+      <root>
+        <one>2</one>
+        <two>
+          <three>3</three>
+          <four/>
+        </two>
+      </root>
+    XML
 
-    assert_not_match_xml_structure(xml) do
-      <<-XML
-        <root>
-          <one>2</one>
-          <two>
-            <three>3</three>
-            <four/>
-          </two>
-        </root>
-      XML
+    assert_not_match_xml_structure(expected) do
+      actual
     end
+    
+    assert_not_match_xml_structure expected, actual
   end
 end
