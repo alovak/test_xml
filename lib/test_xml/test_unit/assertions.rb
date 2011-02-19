@@ -2,12 +2,13 @@ module TestXml
   module TestUnit
     module Assertions
       def self.assertions_for(name, options)
-        define_method("assert_#{name}") do |subject, &block|
-          pattern = block.call
-
+        define_method("assert_#{name}") do |*args, &block|  # TODO: test 2nd parameter.
+          subject = args.shift
+          pattern = args.shift || block.call
+          
           actual = Nokogiri::XML.parse(subject)
           expected = Nokogiri::XML.parse(pattern)
-
+          
           full_message = options[:message_for_should].gsub(/\<pattern\>/, pattern).gsub(/\<subject\>/, subject)
 
           assert_block(full_message) do
@@ -15,8 +16,9 @@ module TestXml
           end
         end
 
-        define_method("assert_not_#{name}") do |subject, &block|
-          pattern = block.call
+        define_method("assert_not_#{name}") do |*args, &block|
+          subject = args.shift
+          pattern = args.shift || block.call
 
           actual = Nokogiri::XML.parse(subject)
           expected = Nokogiri::XML.parse(pattern)
@@ -28,11 +30,12 @@ module TestXml
           end
         end
       end
+      
 
       assertions_for :match_xml,
                      :message_for_should     => "the xml:\n<subject>\nshould match xml:\n<pattern>",
                      :message_for_should_not => "the xml:\n<subject>\nshould not match xml:\n<pattern> but it does",
-                     :matcher => Proc.new {|actual, expected| actual.match?(expected, true)}
+                     :matcher => Proc.new {|actual, expected| actual.match?(expected, true) }
 
       assertions_for :exactly_match_xml,
                      :message_for_should     => "the xml:\n<subject>\nshould exactly match xml:\n<pattern>",

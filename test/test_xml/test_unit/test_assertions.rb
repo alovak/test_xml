@@ -1,6 +1,14 @@
 require 'test_helper'
 
 class TestAssertions < Test::Unit::TestCase
+  def test_assert_match_xml_fails_if_actual_is_not_contained_in_expected
+    e = assert_raises Test::Unit::AssertionFailedError do
+      assert_match_xml("<root><one>1</one><one>2</one></root>", "<root><one>3</one></root>")
+    end
+    
+    assert_equal "the xml:\n<root><one>1</one><one>2</one></root>\nshould match xml:\n<root><one>3</one></root>", e.message
+  end
+    
   def test_assert_match_xml
     xml = <<-XML
       <root>
@@ -16,6 +24,8 @@ class TestAssertions < Test::Unit::TestCase
         </root>
       XML
     end
+    
+    assert_match_xml xml, "<root><one>1</one></root>"
   end
 
   def test_assert_not_match_xml
