@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   s.rubygems_version	= "1.3.5"
   s.add_dependency("nokogiri",       [">= 1.3.2"])
   
-  s.add_development_dependency("minitest")
+  s.add_development_dependency("rake")
+  s.add_development_dependency("rdoc")
   s.add_development_dependency("rspec-core")
 end
