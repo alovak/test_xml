@@ -1,4 +1,6 @@
-Spec::Matchers.define :match_xml do |expected|
+require 'rspec/matchers'
+
+RSpec::Matchers.define :match_xml do |expected|
   match do |actual|
     subject = Nokogiri::XML::Document.parse(actual)
     pattern = Nokogiri::XML::Document.parse(expected)

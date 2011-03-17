@@ -1,4 +1,3 @@
-require 'spec'
+#require 'rspec'
 
-require File.dirname(__FILE__) + '/../lib/test_xml'
-require File.dirname(__FILE__) + '/../lib/test_xml/spec'
+require 'test_xml/spec'
