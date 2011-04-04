@@ -6,14 +6,12 @@ require 'rake/testtask'
 require 'rspec/core/rake_task'
 require 'rdoc/task'
 
-task :default => ['test:units', :spec]
+task :default => ['test', :spec]
 
-namespace :test do
-  Rake::TestTask.new(:units) do |t|
-    t.test_files = FileList['test/**/test_*.rb']
-    t.libs << "test"
-    t.verbose = true
-  end
+Rake::TestTask.new(:test) do |t|
+  t.test_files = FileList['test/**/test_*.rb']
+  t.libs << "test"
+  t.verbose = true
 end
 
 
