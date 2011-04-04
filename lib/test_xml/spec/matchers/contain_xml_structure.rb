@@ -1,9 +1,6 @@
-RSpec::Matchers.define :match_xml_structure do |expected|
+RSpec::Matchers.define :contain_xml_structure do |expected|
   match do |actual|
-    subject = Nokogiri::XML::Document.parse(actual)
-    pattern = Nokogiri::XML::Document.parse(expected)
-
-    subject.match?(pattern)
+    TestXml::MatcherMethods.xml_structure_contain(actual, expected)
   end
 
   failure_message_for_should do |actual|

@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-describe "exactly_match_xml_structure(xml)" do
+# TODO: attributes are not matched.
+
+describe "exactly_match_xml(xml)" do
   subject {
     <<-XML
       <xml>
@@ -10,20 +12,20 @@ describe "exactly_match_xml_structure(xml)" do
     XML
   }
 
-  context "when xml structure is equal with subject" do
+  context "when xml is equal with subject" do
     it "should pass" do
-      should exactly_match_xml_structure(<<-XML)
+      should equal_xml(<<-XML)
         <xml>
-          <one/>
-          <two/>
+          <one>1</one>
+          <two>2</two>
         </xml>
       XML
     end
   end
 
-  context "when xml structure is equal with subject and elements have different content" do
-    it "should pass" do
-      should exactly_match_xml_structure(<<-XML)
+  context "when xml structure is equal with subject but elements have different content" do
+    it "should fail" do
+      should_not equal_xml(<<-XML)
         <xml>
           <one>4</one>
           <two>5</two>
@@ -34,9 +36,9 @@ describe "exactly_match_xml_structure(xml)" do
 
   context "when xml has less elements" do
     it "should fail" do
-      should_not exactly_match_xml_structure(<<-XML)
+      should_not equal_xml(<<-XML)
         <xml>
-          <one/>
+          <one>1</one>
         </xml>
       XML
     end
@@ -44,11 +46,11 @@ describe "exactly_match_xml_structure(xml)" do
 
   context "when xml has more elements" do
     it "should fail" do
-      should_not exactly_match_xml_structure(<<-XML)
+      should_not equal_xml(<<-XML)
         <xml>
-          <one/>
-          <two/>
-          <three/>
+          <one>1</one>
+          <two>2</two>
+          <three>3</three>
         </xml>
       XML
     end

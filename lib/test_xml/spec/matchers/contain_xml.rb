@@ -1,13 +1,6 @@
-require 'rspec/matchers'
-
-RSpec::Matchers.define :match_xml do |expected|
+RSpec::Matchers.define :contain_xml do |expected|
   match do |actual|
-    subject = Nokogiri::XML::Document.parse(actual)
-    pattern = Nokogiri::XML::Document.parse(expected)
-
-    compare_values = true
-
-    subject.match?(pattern, compare_values)
+    TestXml::MatcherMethods.xml_contain(actual, expected)
   end
 
   failure_message_for_should do |actual|
