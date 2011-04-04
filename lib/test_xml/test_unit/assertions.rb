@@ -2,7 +2,7 @@ module TestXml
   module TestUnit
     module Assertions
       def self.assertions_for(name, options)
-        define_method("assert_#{name}") do |*args, &block|  # TODO: test 2nd parameter.
+        define_method("assert_#{name}") do |*args, &block|
           subject = args.shift
           pattern = args.shift || block.call
           
@@ -32,22 +32,22 @@ module TestXml
       end
       
 
-      assertions_for :match_xml,
-                     :message_for_should     => "the xml:\n<subject>\nshould match xml:\n<pattern>",
-                     :message_for_should_not => "the xml:\n<subject>\nshould not match xml:\n<pattern> but it does",
+      assertions_for :xml_contain,
+                     :message_for_should     => "the xml:\n<subject>\nshould contain xml:\n<pattern>",
+                     :message_for_should_not => "the xml:\n<subject>\nshould not contain xml:\n<pattern> but it does",
                      :matcher => Proc.new {|actual, expected| actual.match?(expected, true) }
 
-      assertions_for :exactly_match_xml,
+      assertions_for :xml_equal,
                      :message_for_should     => "the xml:\n<subject>\nshould exactly match xml:\n<pattern>",
                      :message_for_should_not => "the xml:\n<subject>\nshould not exactly match xml:\n<pattern> but it does",
                      :matcher => Proc.new {|actual, expected| actual.match?(expected, true) && expected.match?(actual, true) }
 
-      assertions_for :match_xml_structure,
+      assertions_for :xml_structure_contain,
                      :message_for_should     => "the xml:\n<subject>\nshould match xml structure:\n<pattern>",
                      :message_for_should_not => "the xml:\n<subject>\nshould not match xml structure:\n<pattern> but it does",
                      :matcher => Proc.new {|actual, expected| actual.match?(expected)}
 
-      assertions_for :exactly_match_xml_structure,
+      assertions_for :xml_structure_equal,
                      :message_for_should     => "the xml:\n<subject>\nshould exactly match xml structure:\n<pattern>",
                      :message_for_should_not => "the xml:\n<subject>\nshould not exactly match xml structure:\n<pattern> but it does",
                      :matcher => Proc.new {|actual, expected| actual.match?(expected) && expected.match?(actual) }
