@@ -1,13 +1,18 @@
 module TestXml
   module TestUnit
     module Assertions
+      
+      def parse_xml(subject, pattern)
+        [Nokogiri::XML.parse(subject), Nokogiri::XML.parse(pattern)]
+      end
+      
+      
       def self.assertions_for(name, options)
         define_method("assert_#{name}") do |*args, &block|
           subject = args.shift
           pattern = args.shift || block.call
           
-          actual = Nokogiri::XML.parse(subject)
-          expected = Nokogiri::XML.parse(pattern)
+          actual, expected = parse_xml(subject, pattern)
           
           full_message = options[:message_for_should].gsub(/\<pattern\>/, pattern).gsub(/\<subject\>/, subject)
 
@@ -20,8 +25,7 @@ module TestXml
           subject = args.shift
           pattern = args.shift || block.call
 
-          actual = Nokogiri::XML.parse(subject)
-          expected = Nokogiri::XML.parse(pattern)
+          actual, expected = parse_xml(subject, pattern)
 
           full_message = options[:message_for_should_not].gsub(/\<pattern\>/, pattern).gsub(/\<subject\>/, subject)
 
