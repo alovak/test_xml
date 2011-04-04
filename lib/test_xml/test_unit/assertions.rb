@@ -8,10 +8,7 @@ module TestXml
       
       
       def self.assertions_for(name, options)
-        define_method("assert_#{name}") do |*args, &block|
-          subject = args.shift
-          pattern = args.shift || block.call
-          
+        define_method("assert_#{name}") do |subject, pattern|
           actual, expected = parse_xml(subject, pattern)
           
           full_message = options[:message_for_should].gsub(/\<pattern\>/, pattern).gsub(/\<subject\>/, subject)
@@ -21,10 +18,7 @@ module TestXml
           end
         end
 
-        define_method("assert_not_#{name}") do |*args, &block|
-          subject = args.shift
-          pattern = args.shift || block.call
-
+        define_method("assert_not_#{name}") do |subject, pattern|
           actual, expected = parse_xml(subject, pattern)
 
           full_message = options[:message_for_should_not].gsub(/\<pattern\>/, pattern).gsub(/\<subject\>/, subject)

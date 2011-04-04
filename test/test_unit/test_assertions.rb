@@ -22,10 +22,6 @@ class TestAssertions < Test::Unit::TestCase
         <one>1</one>
       </root>
     XML
-
-    assert_xml_contain(expected) do
-      actual
-    end
     
     assert_xml_contain expected, actual
   end
@@ -42,10 +38,6 @@ class TestAssertions < Test::Unit::TestCase
         <one>2</one>
       </root>
     XML
-      
-    assert_not_xml_contain(expected) do
-      actual
-    end
     
     assert_not_xml_contain expected, actual
   end
@@ -68,10 +60,6 @@ class TestAssertions < Test::Unit::TestCase
         </two>
       </root>
     XML
-
-    assert_xml_structure_contain(expected) do
-      actual
-    end
     
     assert_xml_structure_contain expected, actual
   end
@@ -95,10 +83,6 @@ class TestAssertions < Test::Unit::TestCase
       </root>
     XML
     
-    assert_not_xml_structure_contain(expected) do
-      actual
-    end
-    
     assert_not_xml_structure_contain expected, actual
   end
 
@@ -116,10 +100,6 @@ class TestAssertions < Test::Unit::TestCase
         <two>2</two>
       </root>
     XML
-
-    assert_xml_equal(expected) do
-      actual
-    end
     
     assert_xml_equal expected, actual
   end
@@ -137,10 +117,6 @@ class TestAssertions < Test::Unit::TestCase
         <one>1</one>
       </root>
     XML
-
-    assert_not_xml_equal(expected) do
-      actual
-    end
     
     assert_not_xml_equal expected, actual
   end
@@ -164,10 +140,6 @@ class TestAssertions < Test::Unit::TestCase
       </root>
     XML
     
-    assert_xml_structure_equal(expected) do
-      actual
-    end
-    
     assert_xml_structure_equal expected, actual
   end
 
@@ -190,10 +162,6 @@ class TestAssertions < Test::Unit::TestCase
         </two>
       </root>
     XML
-
-    assert_not_xml_structure_equal(expected) do
-      actual
-    end
     
     assert_not_xml_structure_equal expected, actual
   end
