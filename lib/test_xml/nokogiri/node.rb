@@ -3,16 +3,20 @@ module TestXml
     module Node
       def match?(element, compare_value = false)
         if compare_value && element.leaf?
-          # TODO: move to Attr.
-          attributes.collect {|k,a| [k,a.value]}.sort == element.attributes.collect {|k,a| [k,a.value]}.sort and       equal_text?(element)
+          comparable_attributes == element.comparable_attributes and equal_text?(element)
         else
           contains_elements_of?(element) &&
           element.elements.all? {|el| matches_at_least_one?(el, compare_value) }
         end
       end
-
+      
       def elements
         children.collect {|node| node if node.element? }.delete_if {|node| node.nil?}
+      end
+      
+      # Attributes of the current node.
+      def comparable_attributes
+        attributes.collect {|k,a| [k,a.value]}.sort
       end
       
       # Check if node is either childless, self-closing, or has content text. 
@@ -20,7 +24,7 @@ module TestXml
         children.size == 0 or (children.size == 1 && children.first.text?)
       end
 
-      private
+    private
       def equal_text?(element)
         content == element.content
       end
@@ -36,7 +40,6 @@ module TestXml
       def matches_at_least_one?(element, compare_value)
         search(element.name).find { |el| el.match?(element, compare_value) }
       end
-
     end
   end
 end

@@ -98,12 +98,9 @@ class TestNode < Test::Unit::TestCase
     assert !doc.root.send(:contains_elements_of?, doc('<root><test_element/></root>'))
   end
   
-  # TODO: implement.
-  #def test_attr_equal_comparator
-  #  n1 = create_element(%{<li id="boss" />})
-  #  n2 = create_element(%{<li id="boss" />})
-  #  assert n1.attributes == n2.attributes
-  #end
+  def test_comparable_attributes
+    assert_equal [["id", "boss"], ["name", "Dude"]], create_element(%{<li name="Dude" id="boss" />}).comparable_attributes
+  end
   
 
   private
