@@ -5,14 +5,14 @@ class TestNode < Test::Unit::TestCase
     assert doc.elements.size == 1
     assert doc.at('root').elements.size == 2
   end
-
-  def test_text_element
-    assert doc(<<-XML).at('root').text_element?
-      <root>
-        hello
-      </root>
-    XML
+  
+  def test_leaf?
+    assert doc("<a/>").root.leaf?
+    assert doc("<a>Yo</a>").root.leaf?
+    assert doc("<a></a>").root.leaf?
+    assert !doc("<div><a/></div>").root.leaf?
   end
+  
 
   def test_match_of_elements_without_comparing_values
     subject = doc(<<-XML)
@@ -97,6 +97,14 @@ class TestNode < Test::Unit::TestCase
     assert doc.root.send(:contains_elements_of?, doc.root)
     assert !doc.root.send(:contains_elements_of?, doc('<root><test_element/></root>'))
   end
+  
+  # TODO: implement.
+  #def test_attr_equal_comparator
+  #  n1 = create_element(%{<li id="boss" />})
+  #  n2 = create_element(%{<li id="boss" />})
+  #  assert n1.attributes == n2.attributes
+  #end
+  
 
   private
 

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class TestAssertions < Test::Unit::TestCase
-  def test_assert_match_xml_fails_if_actual_is_not_contained_in_expected
+  def test_assert_xml_contain_fails_if_actual_is_not_contained_in_expected
     e = assert_raises AssertionError do
       assert_xml_contain("<root><one>1</one><one>2</one></root>", "<root><one>3</one></root>")
     end
@@ -102,6 +102,57 @@ class TestAssertions < Test::Unit::TestCase
     XML
     
     assert_xml_equal expected, actual
+  end
+  
+  def test_assert_xml_equal_with_attributes
+    expected = <<-XML
+      <root>
+        <one b="second" a="first">1</one>
+        <two b="second" a="first" />
+      </root>
+    XML
+    
+    actual = <<-XML
+      <root>
+        <one a="first" b="second">1</one>
+        <two b="second" a="first" />
+      </root>
+    XML
+    
+    assert_xml_equal expected, actual
+  end
+  
+  def test_assert_not_xml_equal_with_attributes
+    expected = <<-XML
+      <root>
+        <one b="second" a="first">1</one>
+      </root>
+    XML
+    
+    actual = <<-XML
+      <root>
+        <one a="whoops, wrong" b="second">1</one>
+      </root>
+    XML
+    
+    assert_not_xml_equal expected, actual
+  end
+  
+  def test_assert_not_xml_equal_with_attributes_and_no_text
+    # FIXME: put to node_test.
+    expected = <<-XML
+      <root>
+        <one b="second" a="first" />
+      </root>
+    XML
+    
+    actual = <<-XML
+      <root>
+        <one a="whoops, wrong" b="second" />
+      </root>
+    XML
+    
+    assert_not_xml_equal expected, actual
   end
 
   def test_assert_not_xml_equal

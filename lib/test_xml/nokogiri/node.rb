@@ -2,8 +2,9 @@ module TestXml
   module NokogiriExt
     module Node
       def match?(element, compare_value = false)
-        if compare_value && element.text_element?
-          equal_text?(element)
+        if compare_value && element.leaf?
+          # TODO: move to Attr.
+          attributes.collect {|k,a| [k,a.value]}.sort == element.attributes.collect {|k,a| [k,a.value]}.sort and       equal_text?(element)
         else
           contains_elements_of?(element) &&
           element.elements.all? {|el| matches_at_least_one?(el, compare_value) }
@@ -13,9 +14,10 @@ module TestXml
       def elements
         children.collect {|node| node if node.element? }.delete_if {|node| node.nil?}
       end
-
-      def text_element?
-        children.size == 1 && children.first.text?
+      
+      # Check if node is either childless, self-closing, or has content text. 
+      def leaf?
+        children.size == 0 or (children.size == 1 && children.first.text?)
       end
 
       private
