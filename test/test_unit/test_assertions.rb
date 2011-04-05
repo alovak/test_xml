@@ -12,14 +12,14 @@ class TestAssertions < Test::Unit::TestCase
   def test_assert_xml_contain
     expected = <<-XML
       <root>
-        <one>1</one>
+        <one id="first">1</one>
         <two>2</two>
       </root>
     XML
     
     actual = <<-XML
       <root>
-        <one>1</one>
+        <one id="first">1</one>
       </root>
     XML
     
@@ -139,7 +139,6 @@ class TestAssertions < Test::Unit::TestCase
   end
   
   def test_assert_not_xml_equal_with_attributes_and_no_text
-    # FIXME: put to node_test.
     expected = <<-XML
       <root>
         <one b="second" a="first" />

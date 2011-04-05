@@ -100,6 +100,8 @@ class TestNode < Test::Unit::TestCase
   
   def test_comparable_attributes
     assert_equal [["id", "boss"], ["name", "Dude"]], create_element(%{<li name="Dude" id="boss" />}).comparable_attributes
+    
+    assert_equal [["name", "Dude"]], create_element(%{<li NAME="Dude"/>}).comparable_attributes
   end
   
 

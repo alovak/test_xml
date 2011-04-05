@@ -16,7 +16,7 @@ module TestXml
       
       # Attributes of the current node.
       def comparable_attributes
-        attributes.collect {|k,a| [k,a.value]}.sort
+        attributes.collect {|k,a| [k.downcase, a.value]}.sort
       end
       
       # Check if node is either childless, self-closing, or has content text. 
