@@ -97,8 +97,8 @@ In the features/env.rb
 
 In your steps file e.g. features/step_definitions/xml_steps.rb add this step:
   
-  Then /^the response should match the following xml$/ do |string|
-    response.body.should match_xml(string)
+  Then /^the response should match the following xml$/ do |xml|
+    response.body.should equal_xml(xml)
   end
 
 == REQUIREMENTS
