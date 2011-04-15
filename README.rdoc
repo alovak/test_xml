@@ -104,3 +104,13 @@ In your steps file e.g. features/step_definitions/xml_steps.rb add this step:
 == REQUIREMENTS
 
 * nokogiri
+
+== Many Thanks
+
+{Nick Sutterer}[http://github.com/apotonick] thank you for bringing RSpec 2, Ruby 1.9.2 and MiniTest! You revived the gem! :)
+
+== LICENSE
+
+Copyright © 2010-2011, Pavel Gabriel
+
+Released under the MIT License. 
