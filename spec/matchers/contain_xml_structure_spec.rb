@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "match_xml_structure(xml)" do
+describe "contain_xml_structure(xml)" do
   subject {
     <<-XML
       <xml>
