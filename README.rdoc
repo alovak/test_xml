@@ -40,7 +40,7 @@ TestXml is a small extension for testing XML/HTML. Extending RSpec and TestUnit 
 
   Scenario:
     When I post some data
-    then the response should match the following xml
+    Then the response should match the following xml
     """
       <transaction>
         <status>success</status>
