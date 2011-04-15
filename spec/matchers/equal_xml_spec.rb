@@ -2,7 +2,8 @@ require 'spec_helper'
 
 # TODO: attributes are not matched.
 
-describe "exactly_match_xml(xml)" do
+
+describe "equal_xml(xml)" do
   subject {
     <<-XML
       <xml>
@@ -11,6 +12,23 @@ describe "exactly_match_xml(xml)" do
       </xml>
     XML
   }
+
+  before { TestXml.enable_placeholders = false }
+
+  context "when placeholders are enabled" do
+    before { TestXml.enable_placeholders = true }
+
+    context "and xml with equal structure contains placeholder" do
+      it "should pass" do
+        should equal_xml(<<-XML)
+          <xml>
+            <one>`example`</one>
+            <two>2</two>
+          </xml>
+        XML
+      end
+    end
+  end
 
   context "when xml is equal with subject" do
     it "should pass" do

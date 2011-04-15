@@ -24,10 +24,17 @@ module TestXml
         children.size == 0 or (children.size == 1 && children.first.text?)
       end
 
+      def placeholder?
+        TestXml.placeholders_enabled? and (content =~ /^`.*`$/)
+      end
+
     private
       def equal_text?(element)
+        element.content = content if element.placeholder?
+
         content == element.content
       end
+
 
       def contains_elements_of?(element)
         element.elements.find {|el| not contains?(el)}.nil?
