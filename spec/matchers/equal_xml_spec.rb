@@ -30,6 +30,39 @@ describe "equal_xml(xml)" do
     end
   end
 
+  context "when subject has elements with attributes" do
+    subject {
+      <<-XML
+        <xml test="true">
+          <one type="text" attr="hello">1</one>
+          <two type="integer">2</two>
+        </xml>
+      XML
+    }
+
+    context "and xml has similar elements with attributes" do
+      it "should pass" do
+        should equal_xml(<<-XML)
+          <xml test="true">
+            <one type="text" attr="hello">1</one>
+            <two type="integer">2</two>
+          </xml>
+        XML
+      end
+    end
+
+    context "and xml has elements with different attributes" do
+      it "should fail" do
+        should_not equal_xml(<<-XML)
+          <xml>
+            <one type="text" attr="hello">1</one>
+            <two type="integer">2</two>
+          </xml>
+        XML
+      end
+    end
+  end
+
   context "when xml is equal with subject" do
     it "should pass" do
       should equal_xml(<<-XML)

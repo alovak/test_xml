@@ -23,7 +23,7 @@ module TestXml
     
   private
     def self.parse_xml(subject, pattern)
-      [Nokogiri::XML.parse(subject), Nokogiri::XML.parse(pattern)]
+      [Nokogiri::XML.parse(subject).root, Nokogiri::XML.parse(pattern).root]
     end
   end
 end

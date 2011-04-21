@@ -7,15 +7,15 @@ class TestNode < Test::Unit::TestCase
   end
   
   def test_leaf?
-    assert doc("<a/>").root.leaf?
-    assert doc("<a>Yo</a>").root.leaf?
-    assert doc("<a></a>").root.leaf?
-    assert !doc("<div><a/></div>").root.leaf?
+    assert root("<a/>").leaf?
+    assert root("<a>Yo</a>").leaf?
+    assert root("<a></a>").leaf?
+    assert !root("<div><a/></div>").leaf?
   end
   
 
   def test_match_of_elements_without_comparing_values
-    subject = doc(<<-XML)
+    subject = root(<<-XML)
       <root>
         <one>1</one>
         <two>
@@ -24,7 +24,7 @@ class TestNode < Test::Unit::TestCase
       </root>
     XML
 
-    pattern = doc(<<-XML)
+    pattern = root(<<-XML)
       <root>
         <two><three/></two>
         <one>2</one>
@@ -35,14 +35,14 @@ class TestNode < Test::Unit::TestCase
   end
 
   def test_no_match_of_elements_without_comparing_values
-    subject = doc(<<-XML)
+    subject = root(<<-XML)
       <root>
         <one>1</one>
         <two/>
       </root>
     XML
 
-    pattern = doc(<<-XML)
+    pattern = root(<<-XML)
       <root>
         <four/>
         <five>5</five>
@@ -53,14 +53,14 @@ class TestNode < Test::Unit::TestCase
   end
 
   def test_match_with_values
-    subject = doc(<<-XML)
+    subject = root(<<-XML)
       <root>
         <one>1</one>
         <two><three>3</three></two>
       </root>
     XML
 
-    pattern = doc(<<-XML)
+    pattern = root(<<-XML)
       <root>
         <two><three>3</three></two>
         <one>1</one>
@@ -71,13 +71,13 @@ class TestNode < Test::Unit::TestCase
   end
 
   def test_no_match_with_values
-    subject = doc(<<-XML)
+    subject = root(<<-XML)
       <root>
         <one>1</one>
       </root>
     XML
 
-    not_matched_pattern = doc(<<-XML)
+    not_matched_pattern = root(<<-XML)
       <root>
         <one>2</one>
       </root>
@@ -109,6 +109,10 @@ class TestNode < Test::Unit::TestCase
 
   def create_element(xml)
     Nokogiri::XML::Document.parse(xml).root
+  end
+
+  def root(xml)
+    doc(xml).root
   end
 
   def doc(xml = nil)

@@ -5,8 +5,16 @@ module TestXml
         if compare_value && element.leaf?
           comparable_attributes == element.comparable_attributes and equal_text?(element)
         else
-          contains_elements_of?(element) &&
-          element.elements.all? {|el| matches_at_least_one?(el, compare_value) }
+
+          #TODO clean this part of the code
+          if compare_value
+            (comparable_attributes == element.comparable_attributes) &&
+            contains_elements_of?(element) &&
+            element.elements.all? {|el| matches_at_least_one?(el, compare_value) }
+          else
+            contains_elements_of?(element) &&
+            element.elements.all? {|el| matches_at_least_one?(el, compare_value) }
+          end
         end
       end
       

@@ -130,6 +130,24 @@ class TestAssertions < Test::Unit::TestCase
     
     assert_xml_equal expected, actual
   end
+
+  def test_assert_xml_equal_with_attributes_in_branch_element
+    expected = <<-XML
+      <root type="test">
+        <one>1</one>
+        <two/>
+      </root>
+    XML
+    
+    actual = <<-XML
+      <root type="test">
+        <one>1</one>
+        <two/>
+      </root>
+    XML
+    
+    assert_xml_equal expected, actual
+  end
   
   def test_assert_not_xml_equal_with_attributes
     expected = <<-XML
@@ -146,6 +164,7 @@ class TestAssertions < Test::Unit::TestCase
     
     assert_not_xml_equal expected, actual
   end
+
   
   def test_assert_not_xml_equal_with_attributes_and_no_text
     expected = <<-XML
@@ -157,6 +176,24 @@ class TestAssertions < Test::Unit::TestCase
     actual = <<-XML
       <root>
         <one a="whoops, wrong" b="second" />
+      </root>
+    XML
+    
+    assert_not_xml_equal expected, actual
+  end
+
+  def test_assert_not_xml_equal_with_attributes_in_branch_element
+    expected = <<-XML
+      <root type="test">
+        <one>1</one>
+        <two/>
+      </root>
+    XML
+    
+    actual = <<-XML
+      <root>
+        <one>1</one>
+        <two/>
       </root>
     XML
     
