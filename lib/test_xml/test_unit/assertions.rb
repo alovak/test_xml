@@ -1,41 +1,57 @@
 require 'test_xml/matcher_methods'
+require 'ostruct'
 
 module TestXml
+  class AssertionConfig < OpenStruct
+    def assert_name
+      "assert_#{name}"
+    end
+
+    def assert_not_name
+      "assert_not_#{name}"
+    end
+  end
+
+  ASSERTIONS = [
+    AssertionConfig.new(
+      :name       => :xml_contain,
+      :matcher    => :must_contain_xml,
+      :message_for_should     => lambda { |a,b| "the xml:\n#{a}\nshould contain xml:\n#{b}" },
+      :message_for_should_not => lambda { |a,b| "the xml:\n#{a}\nshould not contain xml:\n#{b} but it does" }
+    ),
+    AssertionConfig.new(
+      :name       => :xml_structure_contain,
+      :matcher    => :must_contain_xml_structure,
+      :message_for_should     => lambda { |a,b| "the xml:\n#{a}\nshould match xml structure:\n#{b}" },
+      :message_for_should_not => lambda { |a,b| "the xml:\n#{a}\nshould not match xml structure:\n#{b} but it does" }
+    ),
+    AssertionConfig.new(
+      :name       => :xml_equal,
+      :matcher    => :must_equal_xml,
+      :message_for_should     => lambda { |a,b| "the xml:\n#{a}\nshould exactly match xml:\n#{b}" },
+      :message_for_should_not => lambda { |a,b| "the xml:\n#{a}\nshould not exactly match xml:\n#{b} but it does" }
+    ),
+    AssertionConfig.new(
+      :name       => :xml_structure_equal,
+      :matcher    => :must_equal_xml_structure,
+      :message_for_should     => lambda { |a,b| "the xml:\n#{a}\nshould exactly match xml structure:\n#{b}" },
+      :message_for_should_not => lambda { |a,b| "the xml:\n#{a}\nshould not exactly match xml structure:\n#{b} but it does" }
+    )
+  ]
+
   module TestUnit
     module Assertions
-
-      def self.assertions_for(name, options)
-        define_method("assert_#{name}") do |subject, pattern|
-          full_message = options[:message_for_should].gsub(/\<pattern\>/, pattern).gsub(/\<subject\>/, subject)
-
-          correct_assert(MatcherMethods.send(name, subject, pattern), full_message)
+      ASSERTIONS.each do |cfg|
+        define_method(cfg.assert_name) do |a, b|
+          correct_assert(MatcherMethods.send(cfg.name, a, b), cfg.message_for_should.call(a, b))
         end
 
-        define_method("assert_not_#{name}") do |subject, pattern|
-          full_message = options[:message_for_should_not].gsub(/\<pattern\>/, pattern).gsub(/\<subject\>/, subject)
-
-          correct_assert(!MatcherMethods.send(name, subject, pattern), full_message)
+        define_method(cfg.assert_not_name) do |a, b|
+          correct_assert(! MatcherMethods.send(cfg.name, a, b), cfg.message_for_should_not.call(a, b))
         end
       end
-      
-      
-      assertions_for :xml_contain,
-                     :message_for_should     => "the xml:\n<subject>\nshould contain xml:\n<pattern>",
-                     :message_for_should_not => "the xml:\n<subject>\nshould not contain xml:\n<pattern> but it does"
 
-      assertions_for :xml_equal,
-                     :message_for_should     => "the xml:\n<subject>\nshould exactly match xml:\n<pattern>",
-                     :message_for_should_not => "the xml:\n<subject>\nshould not exactly match xml:\n<pattern> but it does"
-
-      assertions_for :xml_structure_contain,
-                     :message_for_should     => "the xml:\n<subject>\nshould match xml structure:\n<pattern>",
-                     :message_for_should_not => "the xml:\n<subject>\nshould not match xml structure:\n<pattern> but it does"
-
-      assertions_for :xml_structure_equal,
-                     :message_for_should     => "the xml:\n<subject>\nshould exactly match xml structure:\n<pattern>",
-                     :message_for_should_not => "the xml:\n<subject>\nshould not exactly match xml structure:\n<pattern> but it does"
-
-      private
+    private
       def correct_assert(boolean, message)
         if RUBY_VERSION =~ /1.9.2/ or defined?(MiniTest)
           assert(boolean, message)

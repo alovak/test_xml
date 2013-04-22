@@ -1,15 +1,13 @@
 require "test_xml"
 require 'test_xml/test_unit/assertions'
 
-class MiniTest::Unit::TestCase
+MiniTest::Unit::TestCase.class_eval do
   include TestXml::TestUnit::Assertions
-  MiniTest::Expectations.class_eval do
-    { :assert_xml_contain           => :must_contain_xml,
-      :assert_xml_structure_contain => :must_contain_xml_structure,
-      :assert_xml_equal             => :must_equal_xml,
-      :assert_xml_equal_structure   => :must_equal_xml_structure
-    }.each_pair do |assertion, matcher|
-      infect_an_assertion assertion, matcher
-    end
+end
+
+# TODO: should we remove test_xml/spec?
+MiniTest::Expectations.class_eval do
+  TestXml::ASSERTIONS.each do |cfg|
+    infect_an_assertion(cfg.assert_name, cfg.matcher)
   end
 end
