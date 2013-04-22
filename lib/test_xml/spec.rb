@@ -1,7 +1,6 @@
 require 'test_xml'
-require 'test_xml/test_unit/assertions'
-require 'test_xml/matcher_methods'
 
+# Adds assertions to RSpec.
 TestXml::ASSERTIONS.each do |cfg|
   RSpec::Matchers.define cfg.matcher do |expected|
     match do |actual|
