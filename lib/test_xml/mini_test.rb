@@ -1,5 +1,4 @@
 require "test_xml"
-require "test_xml/test_unit"
 
 # TODO: should we remove test_xml/spec?
 MiniTest::Expectations.class_eval do
@@ -9,5 +8,5 @@ MiniTest::Expectations.class_eval do
 end
 
 class MiniTest::Test
-  include TestXml::TestUnit::Assertions
+  include TestXml::Assertions
 end
