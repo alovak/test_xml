@@ -1,12 +1,11 @@
 = TestXml
 
-
-== DESCRIPTION:
+== DESCRIPTION
 
 TestXml is a small extension for testing XML/HTML. Extending RSpec and TestUnit it makes asserting and comparing XML snippets easy, and is especially helpful for testing RESTful web services and their XML representations.
 
 
-== FEATURES:
+== FEATURES
 
 * runs with RSpec2, Test::Unit, MiniTest and Cucumber
 * Ruby 1.8 and 1.9
@@ -18,7 +17,7 @@ TestXml is a small extension for testing XML/HTML. Extending RSpec and TestUnit 
   gem install test_xml
 
 
-== EXAMPLES:
+== EXAMPLES
 
 === Test::Unit and MiniTest
 
@@ -100,6 +99,41 @@ In your steps file e.g. features/step_definitions/xml_steps.rb add this step:
   Then /^the response should match the following xml$/ do |xml|
     response.body.should equal_xml(xml)
   end
+
+== ASSERTIONS
+
+=== XML is Equal
+
+Elements, attributes and text nodes are all the same
+
+=== XML Contains
+
+The XML contains the given structure. Checks ancestral relationships, elements, attributes and text nodes <b>starting from and including the root node</b>.
+
+For example, given this XML:
+
+  <a>
+    <b><c>Cee</c></b>
+    <d>Dee</b>
+  </a>
+
+This will fail: 
+
+  <b><c>Cee</c></b>
+
+as +b+ is not the root node. The check must be written as: 
+
+  <a>
+    <b><c>Cee</c></b>
+  </a>
+
+=== XML Structure is Equal
+
+Like XML is equal, but ignores attributes and text nodes
+
+=== XML Structure Contains
+
+Like XML contains, but ignores attributes and text nodes
 
 == REQUIREMENTS
 

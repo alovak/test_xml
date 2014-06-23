@@ -8,11 +8,11 @@ TestXml::ASSERTIONS.each do |cfg|
     end
 
     failure_message_for_should do |actual|
-      cfg.message_for_should.call(expected, actual)
+      cfg.message_for_should.call(actual, expected)
     end
 
     failure_message_for_should_not do |actual|
-      cfg.message_for_should_not.call(expected, actual)
+      cfg.message_for_should_not.call(actual, expected)
     end
   end
 end
