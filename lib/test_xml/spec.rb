@@ -7,11 +7,11 @@ TestXml::ASSERTIONS.each do |cfg|
       TestXml::MatcherMethods.send(cfg.name, actual, expected)
     end
 
-    failure_message_for_should do |actual|
+    failure_message do |actual|
       cfg.message_for_should.call(actual, expected)
     end
 
-    failure_message_for_should_not do |actual|
+    failure_message_when_negated do |actual|
       cfg.message_for_should_not.call(actual, expected)
     end
   end
