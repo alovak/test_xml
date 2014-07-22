@@ -16,5 +16,6 @@ TestXml::ASSERTIONS.each do |cfg|
       failure_message { |actual| cfg.message.call(actual, expected) }
       failure_message_when_negated { |actual| cfg.message_when_negated.call(actual, expected) }
     end
+    
   end
 end
