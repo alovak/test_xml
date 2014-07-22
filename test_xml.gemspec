@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   
   s.rubygems_version	= "1.3.5"
+  s.add_dependency("diffy",          ["~> 3.0"])
   s.add_dependency("nokogiri",       [">= 1.3.2"])
   
   s.add_development_dependency("rake")
