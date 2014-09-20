@@ -43,11 +43,11 @@ module TestXml
     )
   ]
 
-  def self.diff(a,b)
-    doc_a = Nokogiri::XML.parse(a,&:noblanks)
-    doc_b = Nokogiri::XML.parse(b,&:noblanks)
+  def self.diff(expect, match)
+    doc_expect = Nokogiri::XML.parse(expect, &:noblanks)
+    doc_match = Nokogiri::XML.parse(match, &:noblanks)
 
-    diff = Diffy::Diff.new(doc_a.to_xml, doc_b.to_xml, :context => 3, :include_diff_info => true).to_a
+    diff = Diffy::Diff.new(doc_match.to_xml, doc_expect.to_xml, :context => 3, :include_diff_info => true).to_a
     return "" if diff.empty?
 
     # Skip diff headers, they're useless since they refer to tempfiles

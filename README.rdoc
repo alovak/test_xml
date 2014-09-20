@@ -7,9 +7,9 @@ TestXml is a small extension for testing XML/HTML. Extending RSpec and TestUnit 
 
 == FEATURES
 
-* runs with RSpec2, Test::Unit, MiniTest and Cucumber
-* Ruby 1.8 and 1.9
-* test XML structure and content
+* Runs with RSpec 2 or 3, Test::Unit, MiniTest and Cucumber
+* Ruby >= 1.8
+* Test XML structure and content
 
 
 == INSTALL
