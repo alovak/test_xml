@@ -20,34 +20,34 @@ module TestXml
     AssertionConfig.new(
       :name       => :xml_contain,
       :matcher    => :contain_xml,
-      :message    => lambda { |a,b| "the xml:\n#{a}\nshould contain xml:\n#{b}" },
-      :message_when_negated => lambda { |a,b| "the xml:\n#{a}\nshould not contain xml:\n#{b} but it does" }
+      :message    => lambda { |expect, actual| "the xml:\n#{actual}\nshould contain xml:\n#{expect}" },
+      :message_when_negated => lambda { |expect, actual| "the xml:\n#{actual}\nshould not contain xml:\n#{expect} but it does" }
     ),
     AssertionConfig.new(
       :name       => :xml_structure_contain,
       :matcher    => :contain_xml_structure,
-      :message    => lambda { |a,b| "the xml:\n#{a}\nshould match xml structure:\n#{b}" },
-      :message_when_negated => lambda { |a,b| "the xml:\n#{a}\nshould not match xml structure:\n#{b} but it does" }
+      :message    => lambda { |expect, actual| "the xml:\n#{actual}\nshould match xml structure:\n#{expect}" },
+      :message_when_negated => lambda { |expect, actual| "the xml:\n#{actual}\nshould not match xml structure:\n#{expect} but it does" }
     ),
     AssertionConfig.new(
       :name       => :xml_equal,
       :matcher    => :equal_xml,
-      :message    => lambda { |a,b| sprintf "the xml:\n%s\nshould exactly match xml:\n%s\nDiff:\n%s", a, b, diff(a,b) },
-      :message_when_negated => lambda { |a,b| "the xml:\n#{a}\nshould not exactly match xml:\n#{b} but it does" }
+      :message    => lambda { |expect, actual| sprintf "the xml:\n%s\nshould exactly match xml:\n%s\n\nDiff:\n%s", actual, expect, diff(expect, actual) },
+      :message_when_negated => lambda { |expect, actual| "the xml:\n#{actual}\nshould not exactly match xml:\n#{expect} but it does" }
     ),
     AssertionConfig.new(
       :name       => :xml_structure_equal,
       :matcher    => :equal_xml_structure,
-      :message    => lambda { |a,b| "the xml:\n#{a}\nshould exactly match xml structure:\n#{b}" },
-      :message_when_negated => lambda { |a,b| "the xml:\n#{a}\nshould not exactly match xml structure:\n#{b} but it does" }
+      :message    => lambda { |expect, actual| "the xml:\n#{actual}\nshould exactly match xml structure:\n#{expect}" },
+      :message_when_negated => lambda { |expect, actual| "the xml:\n#{actual}\nshould not exactly match xml structure:\n#{expect} but it does" }
     )
   ]
 
-  def self.diff(expect, match)
+  def self.diff(expect, actual)
+    doc_actual = Nokogiri::XML.parse(actual, &:noblanks)
     doc_expect = Nokogiri::XML.parse(expect, &:noblanks)
-    doc_match = Nokogiri::XML.parse(match, &:noblanks)
 
-    diff = Diffy::Diff.new(doc_match.to_xml, doc_expect.to_xml, :context => 3, :include_diff_info => true).to_a
+    diff = Diffy::Diff.new(doc_expect.to_xml, doc_actual.to_xml, :context => 3, :include_diff_info => true).to_a
     return "" if diff.empty?
 
     # Skip diff headers, they're useless since they refer to tempfiles

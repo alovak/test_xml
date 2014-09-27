@@ -5,7 +5,7 @@ class TestAssertions < Test::Unit::TestCase
     begin
       assert_xml_contain("<root><one>1</one><one>2</one></root>", "<root><one>3</one></root>")
     rescue Exception => e
-      assert_match %r{the xml:\n<root><one>1</one><one>2</one></root>\nshould contain xml:\n<root><one>3</one></root>}, e.message
+      assert_match %r{the xml:\n<root><one>3</one></root>\nshould contain xml:\n<root><one>1</one><one>2</one></root>}, e.message
     end
   end
 
