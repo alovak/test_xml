@@ -1,3 +1,9 @@
+# 0.1.7 (Unreleased)
+
+* Add diff output to xml_equal
+* Add support for RSpec 3
+* Fix order of expected result and actual result for RSpec
+
 # 0.1.6
 
 * Fix dependencies so that Minitest doesn't rely on Test::Unit anymore. If you having trouble, update to minitest > 4.0.0 :)
