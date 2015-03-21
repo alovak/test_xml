@@ -1,4 +1,4 @@
-# 0.1.7 (Unreleased)
+# 0.1.7
 
 * Add diff output to xml_equal
 * Add support for RSpec 3
