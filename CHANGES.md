@@ -1,3 +1,8 @@
+# 0.1.8
+
+* Add license file and update gemspec with license name
+* Add test-unit to development dependencies, removed rspec-core and added rspec
+
 # 0.1.7
 
 * Add diff output to xml_equal
