@@ -19,7 +19,6 @@ Gem::Specification.new do |s|
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
 
-  s.rubygems_version	= "1.3.5"
   s.license     = "MIT"
 
   s.add_dependency("diffy",          ["~> 3.0"])
