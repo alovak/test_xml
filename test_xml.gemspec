@@ -15,14 +15,16 @@ Gem::Specification.new do |s|
   s.has_rdoc		  = true
   s.extra_rdoc_files = ['README.rdoc']
   s.rdoc_options	= ['--main', 'README.rdoc']
-  
+
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  
+
   s.rubygems_version	= "1.3.5"
+  s.license     = "MIT"
+
   s.add_dependency("diffy",          ["~> 3.0"])
   s.add_dependency("nokogiri",       [">= 1.3.2"])
-  
+
   s.add_development_dependency("rake")
   s.add_development_dependency("rdoc")
   s.add_development_dependency("rspec-core", [">= 2.2"])
