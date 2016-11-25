@@ -1,9 +1,9 @@
-# 0.1.8
+# 0.1.8  2016-11-25
 
 * Add license file and update gemspec with license name
 * Add test-unit to development dependencies, removed rspec-core and added rspec
 
-# 0.1.7
+# 0.1.7  2015-03-15
 
 * Add diff output to xml_equal
 * Add support for RSpec 3
